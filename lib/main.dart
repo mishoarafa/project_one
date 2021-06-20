@@ -9,14 +9,40 @@ import 'modules/bmi/bmi_calculator_screen.dart';
 import 'modules/counter/counter_screen.dart';
 import 'modules/login/login_screen.dart';
 
-void main() async{
-  await Firebase.initializeApp();
-
+void main(){
   runApp(MyApp());
 }
 
 //class MyApp
-class MyApp extends StatelessWidget{
+class MyApp extends StatefulWidget{
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  // Define an async function to initialize FlutterFire
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+
+      });
+    } catch(e) {
+      // Set `_error` state to true if Firebase initialization fails
+      setState(() {
+
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,5 +50,4 @@ class MyApp extends StatelessWidget{
       home: LoginScreen(),
     );
   }
-
 }
