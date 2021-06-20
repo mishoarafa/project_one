@@ -20,3 +20,22 @@ Widget defaultBtn({
         ),
       ),
     );
+
+Widget authTextFormField({
+  required TextEditingController controller,
+  required String text,
+  required IconData icon,
+  TextInputType textInputTypeype = TextInputType.text,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: textInputTypeype,
+      onFieldSubmitted: (value) {
+        print(value);
+      },
+      decoration: InputDecoration(
+        labelText: text,
+        border: OutlineInputBorder(),
+        prefixIcon: Icon(icon),
+      ),
+    );

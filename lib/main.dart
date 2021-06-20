@@ -8,6 +8,7 @@ import 'modules/messenger/messenger_screen_with_listview_builder.dart';
 import 'modules/bmi/bmi_calculator_screen.dart';
 import 'modules/counter/counter_screen.dart';
 import 'modules/login/login_screen.dart';
+import 'modules/register/register_screen.dart';
 
 void main(){
   runApp(MyApp());
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: RegisterScreen(),
     );
   }
 }
