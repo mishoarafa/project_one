@@ -5,14 +5,18 @@ Widget defaultBtn({
   double width = double.infinity,
   required String text,
   required Function() function,
-}) => MaterialButton(
-  minWidth: width,
-  onPressed: function,
-  color: background,
-  child: Text(
-    text,
-    style: TextStyle(
-      color: Colors.white,
-    ),
-  ),
-);
+}) =>
+    Container(
+      width: width,
+      color: background,
+      child: MaterialButton(
+        height: 50,
+        onPressed: function,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
