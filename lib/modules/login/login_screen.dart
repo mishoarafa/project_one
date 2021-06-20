@@ -76,20 +76,15 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                MaterialButton(
-                  minWidth: MediaQuery.of(context).size.width,
-                  onPressed: () {
+                defaultBtn(
+                  text: "Login",
+                  function: (){
                     print("Email: " + emailController.text);
                     print("Password: " + passwordController.text);
-                  },
-                  color: Colors.blue,
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                  }
                 ),
+
+
                 SizedBox(
                   height: 20,
                 ),
