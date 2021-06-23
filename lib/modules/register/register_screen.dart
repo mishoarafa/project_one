@@ -1,16 +1,56 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_one/modules/bmi/bmi_calculator_screen.dart';
+import 'package:project_one/modules/login/login_screen.dart';
 import 'package:project_one/shared/components/components.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
+
+
+    void userCreate(uID) {
+      FirebaseFirestore.instance.collection("users").doc(uID).set({
+        "name" : nameController.text,
+        "email" : emailController.text,
+        "phone" : phoneController.text,
+        "UID" : uID,
+        "isEmailVerified" : false,
+      }).then((value) {
+        print("success!!");
+        Get.offAll(BMIScreen());
+      }).catchError((error){
+        print(error.toString());
+      });
+    };
+
+    void userRegister() {
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      )
+          .then((value) {
+        print("email: " + value.user!.email.toString());
+        print("UID: " + value.user!.uid);
+        userCreate(value.user!.uid);
+      }).catchError((error) {
+        print(error);
+      });
+    };
 
     return Scaffold(
       appBar: AppBar(),
@@ -44,7 +84,7 @@ class RegisterScreen extends StatelessWidget {
                   controller: emailController,
                   text: "Email Address",
                   icon: Icons.email,
-                  textInputTypeype: TextInputType.emailAddress,
+                  textInputType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 15,
@@ -77,26 +117,27 @@ class RegisterScreen extends StatelessWidget {
                   controller: phoneController,
                   text: "Phone",
                   icon: Icons.phone,
-                  textInputTypeype: TextInputType.phone,
+                  textInputType: TextInputType.phone,
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                defaultBtn(
-                    text: "Register",
-                    function: () {
-                      FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          )
-                          .then((value) => () {
-                            print("email: " + value.user!.email.toString());
-                            print("UID" + value.user!.uid);
-                      });
-                      // print("Email: " + emailController.text);
-                      // print("Password: " + passwordController.text);
-                    }),
+
+                Container(
+                  width: double.infinity,
+                  color: Colors.green,
+                  child: MaterialButton(
+                    height: 50,
+                    onPressed: userRegister,
+                    child: Text(
+                      "Register",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
                 SizedBox(
                   height: 20,
                 ),
@@ -105,7 +146,9 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text("Already have an account?"),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offAll(LoginScreen());
+                      },
                       child: Text(
                         "Sign in",
                       ),

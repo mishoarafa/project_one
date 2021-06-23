@@ -25,17 +25,39 @@ Widget authTextFormField({
   required TextEditingController controller,
   required String text,
   required IconData icon,
-  TextInputType textInputTypeype = TextInputType.text,
+  TextInputType textInputType = TextInputType.text,
+  bool isPassword = false,
+  Function(String)? onSubmit,
 }) =>
     TextFormField(
-      controller: controller,
-      keyboardType: textInputTypeype,
-      onFieldSubmitted: (value) {
-        print(value);
+      validator: (value){
+
       },
+      controller: controller,
+      obscureText: isPassword,
+      keyboardType: textInputType,
+      onFieldSubmitted: onSubmit,
       decoration: InputDecoration(
-        labelText: text,
-        border: OutlineInputBorder(),
-        prefixIcon: Icon(icon),
-      ),
+          labelText: text,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(icon),
+          suffixIcon: isPassword
+              ? Visibility(
+                  visible: true,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                    ),
+                  ),
+                )
+              : Visibility(
+                  visible: false,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                    ),
+                  ),
+                )),
     );
