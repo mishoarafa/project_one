@@ -33,6 +33,7 @@ Widget authTextFormField({
       validator: (value){
 
       },
+
       controller: controller,
       obscureText: isPassword,
       keyboardType: textInputType,
