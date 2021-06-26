@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_one/modules/bmi/bmi_calculator_screen.dart';
 import 'package:project_one/modules/register/register_screen.dart';
 import 'package:project_one/shared/components/components.dart';
 
@@ -24,6 +25,7 @@ class LoginScreen extends StatelessWidget {
           .then((value) {
         print("Email: " + value.user!.email.toString());
         print("UID: " + value.user!.uid);
+        Get.offAll(BMIScreen());
       }).catchError((error){
         print(error);
       });
