@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_one/shared/components/constants.dart';
 
 class BMIResultScreen extends StatelessWidget {
   const BMIResultScreen({
@@ -15,6 +17,14 @@ class BMIResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // getUserData(){
+    //   FirebaseFirestore.instance.collection("users").doc(uId).get().then((value) {
+    //     print(value.data());
+    //   }).catchError((error){
+    //     print("ERRORRRRRR!!!!!" + error.toString());
+    //   });
+    // };
+
     return Scaffold(
       appBar: AppBar(
         title: Text("BMI Result"),

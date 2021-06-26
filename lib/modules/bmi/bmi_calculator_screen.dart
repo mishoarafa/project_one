@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_one/modules/bmi_result/bmi_result_screen.dart';
+import 'package:project_one/shared/components/constants.dart';
 
 class BMIScreen extends StatefulWidget {
   const BMIScreen({Key? key}) : super(key: key);
@@ -304,6 +306,13 @@ class _BMIScreenState extends State<BMIScreen> {
               onPressed: () {
                 var result = weight / pow(heightSlider / 100, 2);
                 print(result.round());
+
+                FirebaseFirestore.instance.collection("users").doc(uId).get().then((value) {
+                  print(value.data());
+                }).catchError((error){
+                  print("ERRORRRRRR!!!!!" + error.toString());
+                });
+
 
                 Navigator.push(
                     context,

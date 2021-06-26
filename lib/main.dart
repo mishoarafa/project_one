@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_one/modules/home/home_screen.dart';
 import 'package:project_one/modules/messenger/messenger_screen.dart';
 import 'package:project_one/modules/users/users_screen.dart';
+import 'package:project_one/shared/components/constants.dart';
 import 'modules/bmi_result/bmi_result_screen.dart';
 import 'modules/messenger/messenger_screen_with_listview_builder.dart';
 import 'modules/bmi/bmi_calculator_screen.dart';
@@ -47,6 +49,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    uId = FirebaseAuth.instance.currentUser!.uid;
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
