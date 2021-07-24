@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_one/layout/home_layout.dart';
 import 'package:project_one/modules/home/home_screen.dart';
 import 'package:project_one/modules/messenger/messenger_screen.dart';
 import 'package:project_one/modules/users/users_screen.dart';
@@ -49,7 +50,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: CounterScreen(),
     );
   }
 }
