@@ -1,60 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_one/modules/counter/cubit/cubit.dart';
+import 'package:project_one/modules/counter/cubit/states.dart';
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({Key? key}) : super(key: key);
-
-  @override
-  _CounterScreenState createState() => _CounterScreenState();
-}
-
-class _CounterScreenState extends State<CounterScreen> {
-  int counter = 1;
+class CounterScreen extends StatelessWidget {
+  // const CounterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Counter",
-        ),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  counter--;
-                });
-              },
-              child: Text(
-                "Minus",
-              ),
+    return BlocProvider(
+      create: (BuildContext context) => CounterCubit(),
+      child: BlocConsumer<CounterCubit, CounterStates>(
+        listener: (context, state) {
+          if (state is CounterMinusState) {
+            print("Minus state ${state.counter}");
+          }
+          if (state is CounterPlusState) {
+            print("Plus state ${state.counter}");
+            CounterPlusState s = CounterPlusState(5);
+          }
+        },
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "Counter",
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Text(
-                "$counter",
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.w900,
+          ),
+          body: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    CounterCubit.get(context).minus();
+                  },
+                  child: Text(
+                    "Minus",
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Text(
+                    "${CounterCubit.get(context).counter}",
+                    style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    CounterCubit.get(context).plus();
+                  },
+                  child: Text(
+                    "Plus",
+                  ),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  counter++;
-                });
-              },
-              child: Text(
-                "Plus",
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
