@@ -17,7 +17,6 @@ class CounterScreen extends StatelessWidget {
           }
           if (state is CounterPlusState) {
             print("Plus state ${state.counter}");
-            CounterPlusState s = CounterPlusState(5);
           }
         },
         builder: (context, state) => Scaffold(
