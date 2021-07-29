@@ -171,9 +171,9 @@ class HomeLayout extends StatelessWidget {
                 ),
               ],
             ),
-            body: (true)
-                ? cubit.screens[cubit.currentIndex]
-                : Center(child: CircularProgressIndicator()),
+            body: (state is AppGetDatabaseLoadingState)
+                ? Center(child: CircularProgressIndicator())
+                : cubit.screens[cubit.currentIndex],
           );
         },
       ),

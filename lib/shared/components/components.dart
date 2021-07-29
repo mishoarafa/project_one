@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_one/shared/cubit/cubit.dart';
 
 Widget defaultBtn({
   Color background = Colors.green,
@@ -47,39 +48,67 @@ Widget defaultFormField({
       validator: validate,
     );
 
-
-Widget buildTaskItem(Map model) => Padding(
-  padding: const EdgeInsets.all(18.0),
-  child: Row(
-    children: [
-      CircleAvatar(
-        radius: 40,
-        child: Text(
-          "${model["time"]}",
-        ),
-      ),
-      SizedBox(
-        width: 20,
-      ),
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+Widget buildTaskItem(Map model, BuildContext context) => Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Row(
         children: [
-          Text(
-            "${model["title"]}",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          CircleAvatar(
+            radius: 40,
+            child: Text(
+              "${model["time"]}",
             ),
           ),
-          Text(
-            "${model["date"]}",
-            style: TextStyle(
-              color: Colors.grey,
+          SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${model["title"]}",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "${model["date"]}",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          IconButton(
+            onPressed: () {
+              AppCubit.get(context).updateDatabase(
+                status: "done",
+                id: model["id"],
+              );
+            },
+            icon: Icon(
+              Icons.check_circle,
+              color: Colors.green,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              AppCubit.get(context).updateDatabase(
+                status: "archived",
+                id: model["id"],
+              );
+            },
+            icon: Icon(
+              Icons.archive,
+              color: Colors.black45,
             ),
           ),
         ],
       ),
-    ],
-  ),
-);
+    );
