@@ -48,67 +48,73 @@ Widget defaultFormField({
       validator: validate,
     );
 
-Widget buildTaskItem(Map model, BuildContext context) => Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 40,
-            child: Text(
-              "${model["time"]}",
+Widget buildTaskItem(Map model, BuildContext context) => Dismissible(
+      key: Key(model["id"].toString()),
+      child: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 40,
+              child: Text(
+                "${model["time"]}",
+              ),
             ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${model["title"]}",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${model["title"]}",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  "${model["date"]}",
-                  style: TextStyle(
-                    color: Colors.grey,
+                  Text(
+                    "${model["date"]}",
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          IconButton(
-            onPressed: () {
-              AppCubit.get(context).updateDatabase(
-                status: "done",
-                id: model["id"],
-              );
-            },
-            icon: Icon(
-              Icons.check_circle,
-              color: Colors.green,
+            SizedBox(
+              width: 20,
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              AppCubit.get(context).updateDatabase(
-                status: "archived",
-                id: model["id"],
-              );
-            },
-            icon: Icon(
-              Icons.archive,
-              color: Colors.black45,
+            IconButton(
+              onPressed: () {
+                AppCubit.get(context).updateDatabase(
+                  status: "done",
+                  id: model["id"],
+                );
+              },
+              icon: Icon(
+                Icons.check_circle,
+                color: Colors.green,
+              ),
             ),
-          ),
-        ],
+            IconButton(
+              onPressed: () {
+                AppCubit.get(context).updateDatabase(
+                  status: "archived",
+                  id: model["id"],
+                );
+              },
+              icon: Icon(
+                Icons.archive,
+                color: Colors.black45,
+              ),
+            ),
+          ],
+        ),
       ),
+      onDismissed: (direction) {
+        AppCubit.get(context).deleteFromDB(id: model["id"]);
+      },
     );
