@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: Colors.black26,
       ),
       themeMode: ThemeMode.light,
-      home: NewsLayout(),
+      home: TodoLayout(),
     );
   }
 }
