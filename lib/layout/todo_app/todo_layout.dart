@@ -11,7 +11,7 @@ import 'package:project_one/shared/cubit/cubit.dart';
 import 'package:project_one/shared/cubit/states.dart';
 import 'package:sqflite/sqflite.dart';
 
-class HomeLayout extends StatelessWidget {
+class TodoLayout extends StatelessWidget {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
@@ -37,6 +37,9 @@ class HomeLayout extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 cubit.titles[cubit.currentIndex],
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
               ),
             ),
             floatingActionButton: FloatingActionButton(
@@ -45,20 +48,6 @@ class HomeLayout extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     cubit.insertToDB(titleController.text, dateController.text,
                         timeController.text);
-                    // insertToDB(titleController.text, dateController.text,
-                    //         timeController.text)
-                    //     .then((value) {
-                    //   getDataFromDB(db).then((value) {
-                    //     Get.back();
-                    //     // setState(() {
-                    //     //   isBottomSheetShown = !isBottomSheetShown;
-                    //     //   fabIcon = Icons.edit;
-                    //     //
-                    //     //   tasks = value;
-                    //     // });
-                    //     print(tasks);
-                    //   });
-                    // });
                   }
                 } else {
                   scaffoldKey.currentState!
