@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_one/modules/news_app/web_view/web_view_screen.dart';
 import 'package:project_one/shared/cubit/cubit.dart';
 
 Widget defaultBtn({
@@ -50,7 +52,8 @@ Widget defaultFormField({
       validator: validate,
     );
 
-Widget buildTaskItem(Map model, BuildContext context) => Dismissible(
+Widget buildTaskItem(Map model, BuildContext context) =>
+    Dismissible(
       key: Key(model["id"].toString()),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -121,7 +124,8 @@ Widget buildTaskItem(Map model, BuildContext context) => Dismissible(
       },
     );
 
-Widget myDivider() => Padding(
+Widget myDivider() =>
+    Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
       ),
@@ -132,58 +136,67 @@ Widget myDivider() => Padding(
       ),
     );
 
-Widget buildArticleItem(context, article) => Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 120,
-            height: 120,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: (article["urlToImage"] != null)
-                ? Image.network(
-                    "${article["urlToImage"]}",
-                    fit: BoxFit.cover,
-                  )
-                : Center(
-                    child: Text(
+Widget buildArticleItem(context, article) =>
+    InkWell(
+      onTap: () {
+        Get.to(() => WebViewScreen(article["url"]));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 120,
+              height: 120,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: (article["urlToImage"] != null)
+                  ? Image.network(
+                "${article["urlToImage"]}",
+                fit: BoxFit.cover,
+              )
+                  : Center(
+                  child: Text(
                     "No image",
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   )),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "${article["title"]}",
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                Text(
-                  "${article["publishedAt"]}",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
             ),
-          )
-        ],
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${article["title"]}",
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyText1,
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    "${article["publishedAt"]}",
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );

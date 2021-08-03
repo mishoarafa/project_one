@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../app_bar_widgets.dart';
 import 'messenger_screen_widgets.dart';
 
 class MessengerScreenWithListViewBuilder extends StatelessWidget {
@@ -9,7 +8,55 @@ class MessengerScreenWithListViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBarMessengerScreen(),
+      appBar: AppBar(
+        titleSpacing: 20,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 17,
+              backgroundImage: NetworkImage(
+                  "https://www.wallpaperflare.com/static/594/468/54/nature-flowers-dark-background-purple-wallpaper.jpg"),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              "Chats",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: CircleAvatar(
+              radius: 15,
+              backgroundColor: Colors.blue.withOpacity(0.8),
+              child: Icon(
+                Icons.camera_alt,
+                size: 19,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: CircleAvatar(
+              radius: 15,
+              backgroundColor: Colors.blue.withOpacity(0.8),
+              child: Icon(
+                Icons.edit,
+                size: 19,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsetsDirectional.only(
           top: 5,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_one/modules/counter/cubit/cubit.dart';
-import 'package:project_one/modules/counter/cubit/states.dart';
+import 'package:project_one/modules/counter_app/counter/cubit/cubit.dart';
+import 'package:project_one/modules/counter_app/counter/cubit/states.dart';
 
 class CounterScreen extends StatelessWidget {
   // const CounterScreen({Key? key}) : super(key: key);

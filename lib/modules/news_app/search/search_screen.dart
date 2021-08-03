@@ -46,7 +46,7 @@ class SearchScreen extends StatelessWidget {
                         separatorBuilder: (context, index) => myDivider(),
                         itemCount: 10,
                       )
-                    : Center(child: CircularProgressIndicator()),
+                    : Container(),
               ],
             ),
           ),

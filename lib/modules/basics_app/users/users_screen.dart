@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_one/models/user/user_model.dart';
-import 'package:project_one/modules/users/users_screen_widgets.dart';
+import 'package:project_one/modules/basics_app/users/users_screen_widgets.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({Key? key}) : super(key: key);

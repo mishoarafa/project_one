@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_one/modules/bmi/bmi_calculator_screen.dart';
-import 'package:project_one/modules/login/login_screen.dart';
+import 'package:project_one/modules/basics_app/login/login_screen.dart';
 import 'package:project_one/shared/components/components.dart';
 
 class RegisterScreen extends StatefulWidget {
