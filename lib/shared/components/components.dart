@@ -30,6 +30,7 @@ Widget defaultFormField({
   bool isPassword = false,
   Function(String)? onSubmit,
   Function()? onTap,
+  Function(String)? onChanged,
   required String? Function(String?) validate,
   Widget suffixIcon = const Text(""),
 }) =>
@@ -39,6 +40,7 @@ Widget defaultFormField({
       keyboardType: textInputType,
       onFieldSubmitted: onSubmit,
       onTap: onTap,
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: text,
         border: OutlineInputBorder(),

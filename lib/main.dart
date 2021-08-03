@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:project_one/layout/news_app/cubit/cubit.dart';
 import 'package:project_one/layout/todo_app/todo_layout.dart';
 import 'package:project_one/modules/home/home_screen.dart';
 import 'package:project_one/modules/messenger/messenger_screen.dart';
@@ -42,9 +43,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) =>
-          AppCubit()..changeMode(fromShared: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NewsCubit()..getBusinessNews()),
+        BlocProvider(create: (context) => AppCubit()..changeMode(fromShared: isDark)),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
@@ -121,6 +124,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               )),
+
             ),
             themeMode: (AppCubit.get(context).isDark)
                 ? ThemeMode.dark
