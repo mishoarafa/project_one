@@ -18,4 +18,5 @@ class AppUpdateDBState extends AppStates {}
 
 class AppDeleteFromDBState extends AppStates {}
 
+class AppChangeModeState extends AppStates {}
 

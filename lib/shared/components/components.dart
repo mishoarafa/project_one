@@ -118,3 +118,70 @@ Widget buildTaskItem(Map model, BuildContext context) => Dismissible(
         AppCubit.get(context).deleteFromDB(id: model["id"]);
       },
     );
+
+Widget myDivider() => Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.grey[300],
+      ),
+    );
+
+Widget buildArticleItem(context, article) => Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: (article["urlToImage"] != null)
+                ? Image.network(
+                    "${article["urlToImage"]}",
+                    fit: BoxFit.cover,
+                  )
+                : Center(
+                    child: Text(
+                    "No image",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                  )),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "${article["title"]}",
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Text(
+                  "${article["publishedAt"]}",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );

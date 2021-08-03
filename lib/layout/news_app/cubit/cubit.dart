@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_one/layout/new_app/cubit/states.dart';
+import 'package:project_one/layout/news_app/cubit/states.dart';
 import 'package:project_one/modules/business/business_screen.dart';
 import 'package:project_one/modules/science/science_screen.dart';
 import 'package:project_one/modules/settings/settings_screen.dart';
@@ -33,27 +33,28 @@ class NewsCubit extends Cubit<NewsStates> {
       ),
       label: "Science",
     ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.settings,
-      ),
-      label: "Settings",
-    ),
   ];
 
   List<Widget> screens = [
     BusinessScreen(),
     SportsScreen(),
     ScienceScreen(),
-    SettingsScreen(),
   ];
 
   List<dynamic> business = [];
+  List<dynamic> sports = [];
+  List<dynamic> science = [];
 
   void changeIndex(index) {
     currentIndex = index;
-    print("******* Index: " + index.toString());
+    if (index == 1) {
+      getSportsNews();
+    }
+    if (index == 2) {
+      getScienceNews();
+    }
     emit(NewsBottomNavIndexChangeState());
+    print("******* Index: " + index.toString());
   }
 
   void getBusinessNews() {
@@ -66,7 +67,6 @@ class NewsCubit extends Cubit<NewsStates> {
         "apiKey": "0fa74e6983e3471fae50a3704ee35a4d",
       },
     ).then((value) {
-      // print("******Response : " + value.data.toString());
       business = value.data["articles"];
 
       emit(NewsGetBusinessSuccessState());
@@ -75,5 +75,55 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(NewsGetBusinessErrorState(error.toString()));
       print("******** Error: " + error.toString());
     });
+  }
+
+  void getSportsNews() {
+    emit(NewsGetSportsLoadingState());
+
+    if (sports.length == 0) {
+      DioHelper.getData(
+        url: "v2/top-headlines",
+        query: {
+          "country": "eg",
+          "category": "sports",
+          "apiKey": "0fa74e6983e3471fae50a3704ee35a4d",
+        },
+      ).then((value) {
+        sports = value.data["articles"];
+
+        emit(NewsGetSportsSuccessState());
+        print(sports.length);
+      }).catchError((error) {
+        emit(NewsGetSportsErrorState(error.toString()));
+        print("******** Error: " + error.toString());
+      });
+    } else {
+      emit(NewsGetSportsSuccessState());
+    }
+  }
+
+  void getScienceNews() {
+    emit(NewsGetScienceLoadingState());
+
+    if (science.length == 0) {
+      DioHelper.getData(
+        url: "v2/top-headlines",
+        query: {
+          "country": "eg",
+          "category": "science",
+          "apiKey": "0fa74e6983e3471fae50a3704ee35a4d",
+        },
+      ).then((value) {
+        science = value.data["articles"];
+
+        emit(NewsGetScienceSuccessState());
+        print(science.length);
+      }).catchError((error) {
+        emit(NewsGetScienceErrorState(error.toString()));
+        print("******** Error: " + error.toString());
+      });
+    } else {
+      emit(NewsGetScienceSuccessState());
+    }
   }
 }

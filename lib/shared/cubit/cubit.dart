@@ -4,6 +4,7 @@ import 'package:project_one/modules/archived_tasks/archived_tasks_screen.dart';
 import 'package:project_one/modules/done_tasks/done_tasks_screen.dart';
 import 'package:project_one/modules/new_tasks/new_tasks_screen.dart';
 import 'package:project_one/shared/cubit/states.dart';
+import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -18,6 +19,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Map> archivedTasks = [];
   bool isBottomSheetShown = false;
   IconData fabIcon = Icons.edit;
+  bool isDark = false;
 
   List<Widget> screens = [
     NewTasksScreen(),
@@ -128,4 +130,17 @@ class AppCubit extends Cubit<AppStates> {
     fabIcon = icon;
     emit(AppChangeBottomSheetState());
   }
+
+  void changeMode({bool? fromShared}) {
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    } else {
+      isDark = !isDark;
+      CacheHelper.putBoolean("isDark", isDark).then((value) {
+        emit(AppChangeModeState());
+      });
+    }
+  }
+
 }
