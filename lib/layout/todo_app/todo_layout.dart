@@ -35,8 +35,8 @@ class TodoLayout extends StatelessWidget {
               title: Text(
                 cubit.titles[cubit.currentIndex],
                 style: TextStyle(
-                  color: Colors.blue,
-                ),
+                    // color: Colors.blue,
+                    ),
               ),
             ),
             floatingActionButton: FloatingActionButton(
@@ -128,7 +128,9 @@ class TodoLayout extends StatelessWidget {
                       .closed
                       .then((value) {
                     cubit.changeBottomSheetState(
-                        isShown: false, icon: Icons.edit);
+                      isShown: false,
+                      icon: Icons.edit,
+                    );
                   });
                   cubit.changeBottomSheetState(isShown: true, icon: Icons.add);
                 }

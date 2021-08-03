@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:project_one/layout/news_app/cubit/cubit.dart';
 import 'package:project_one/layout/todo_app/todo_layout.dart';
+import 'package:project_one/modules/bmi_app/bmi/bmi_calculator_screen.dart';
+import 'package:project_one/modules/counter_app/counter/counter_screen.dart';
 import 'package:project_one/shared/bloc_observer.dart';
 import 'package:project_one/shared/cubit/cubit.dart';
 import 'package:project_one/shared/cubit/states.dart';

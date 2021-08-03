@@ -20,7 +20,7 @@ class _BMIScreenState extends State<BMIScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: isMale ? Colors.blue : Colors.pinkAccent,
+        // backgroundColor: isMale ? Colors.blue : Colors.pinkAccent,
         title: Text(
           "BMI Calculator",
         ),
