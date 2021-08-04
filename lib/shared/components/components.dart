@@ -182,7 +182,7 @@ Widget buildArticleItem(context, article) =>
                     style: Theme
                         .of(context)
                         .textTheme
-                        .bodyText1,
+                        .headline6,
                   ),
                   SizedBox(
                     height: 6,
