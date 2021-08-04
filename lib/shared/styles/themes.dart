@@ -36,6 +36,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
+  fontFamily: "Jannah",
 );
 ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Color(0xff333739),
@@ -73,4 +74,5 @@ ThemeData darkTheme = ThemeData(
       color: Colors.white,
     ),
   ),
+  fontFamily: "Jannah",
 );
