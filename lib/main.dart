@@ -17,6 +17,7 @@ import 'package:project_one/modules/bmi_app/bmi/bmi_calculator_screen.dart';
 import 'package:project_one/modules/counter_app/counter/counter_screen.dart';
 import 'package:project_one/modules/shop_app/login/shop_login_screen.dart';
 import 'package:project_one/modules/shop_app/on_boarding/on_boarding_screen.dart';
+import 'package:project_one/modules/social_app/social_login/social_login_screen.dart';
 import 'package:project_one/shared/bloc_observer.dart';
 import 'package:project_one/shared/components/constants.dart';
 import 'package:project_one/shared/network/local/cache_helper.dart';
@@ -35,7 +36,7 @@ void main() async {
   bool? isDark = await CacheHelper.getData("isDark");
   bool? onBoarding = await CacheHelper.getData("onBoarding");
   token = await CacheHelper.getData("token") ?? "";
-  print("******** Token: " + token);
+  // print("******** Token: " + token);
 
   Widget widget;
 
@@ -89,7 +90,7 @@ class MyApp extends StatelessWidget {
             themeMode: (AppCubit.get(context).isDark)
                 ? ThemeMode.dark
                 : ThemeMode.light,
-            home: startWidget,
+            home: SocialLoginScreen(),
           );
         },
       ),

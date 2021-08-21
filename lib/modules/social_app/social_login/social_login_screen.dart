@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:project_one/layout/shop_app/shop_layout.dart';
-import 'package:project_one/modules/shop_app/login/cubit/cubit.dart';
-import 'package:project_one/modules/shop_app/login/cubit/states.dart';
-import 'package:project_one/modules/shop_app/register/shop_register_screen.dart';
+import 'package:project_one/modules/social_app/social_login/cubit/cubit.dart';
+import 'package:project_one/modules/social_app/social_login/cubit/states.dart';
+import 'package:project_one/modules/social_app/social_register/social_register_screen.dart';
 import 'package:project_one/shared/components/components.dart';
-import 'package:project_one/shared/components/constants.dart';
-import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:project_one/shared/styles/colors.dart';
 
-class ShopLoginScreen extends StatelessWidget {
+class SocialLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -20,39 +16,11 @@ class ShopLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ShopLoginCubit(),
-      child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-        listener: (BuildContext context, state) {
-          if (state is ShopLoginSuccessState) {
-            if (state.loginModel.status!) {
-              //It will print both the message and the "token"
-              print("******** Message: " + state.loginModel.message!);
-              print("******** Token: " + state.loginModel.data!.token);
-              CacheHelper.saveData(
-                key: "token",
-                value: state.loginModel.data!.token,
-              ).then((value) {
-                token = state.loginModel.data!.token;
-
-                Get.offAll(() => ShopLayout());
-              });
-
-              showToast(
-                message: state.loginModel.message!,
-                state: ToastStates.SUCCESS,
-              );
-            } else {
-              //It will print only the message because the token is null
-              print("******** Message: " + state.loginModel.message!);
-              showToast(
-                message: state.loginModel.message!,
-                state: ToastStates.ERROR,
-              );
-            }
-          }
-        },
+      create: (BuildContext context) => SocialLoginCubit(),
+      child: BlocConsumer<SocialLoginCubit, SocialLoginStates>(
+        listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
-          var cubit = ShopLoginCubit.get(context);
+          var cubit = SocialLoginCubit.get(context);
 
           return Scaffold(
             appBar: AppBar(
@@ -72,20 +40,26 @@ class ShopLoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Login",
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                         Text(
-                          "Login now to browse our hot offers",
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
+                          "Login now to communicate with friends",
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
                         ),
                         SizedBox(
                           height: 30,
@@ -114,9 +88,9 @@ class ShopLoginScreen extends StatelessWidget {
                           isPassword: !cubit.isPasswordShown,
                           onSubmit: (value) {
                             if (formKey.currentState!.validate()) {
-                              cubit.userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text);
+                              // cubit.userLogin(
+                              //     email: emailController.text,
+                              //     password: passwordController.text);
                             }
                           },
                           suffixIcon: cubit.suffixIcon,
@@ -134,23 +108,23 @@ class ShopLoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        (state is! ShopLoginLoadingState)
+                        (state is! SocialLoginLoadingState)
                             ? defaultBtn(
-                                text: "Login",
-                                background: defaultColor,
-                                isUpperCase: true,
-                                function: () {
-                                  if (formKey.currentState!.validate()) {
-                                    cubit.userLogin(
-                                        email: emailController.text,
-                                        password: passwordController.text);
-                                  }
-                                },
-                                btnTextWeight: FontWeight.bold,
-                              )
+                          text: "Login",
+                          background: defaultColor,
+                          isUpperCase: true,
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              // cubit.userLogin(
+                              //     email: emailController.text,
+                              //     password: passwordController.text);
+                            }
+                          },
+                          btnTextWeight: FontWeight.bold,
+                        )
                             : Center(
-                                child: SpinKitFadingCircle(color: defaultColor),
-                              ),
+                          child: SpinKitFadingCircle(color: defaultColor),
+                        ),
                         SizedBox(
                           height: 15,
                         ),
@@ -162,7 +136,7 @@ class ShopLoginScreen extends StatelessWidget {
                             ),
                             defaultTextButton(
                               onPressed: () {
-                                Get.to(() => ShopRegisterScreen());
+                                Get.to(() => SocialRegisterScreen());
                               },
                               text: "Register Now",
                               textColor: defaultColor,

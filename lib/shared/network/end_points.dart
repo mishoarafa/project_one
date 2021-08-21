@@ -1,4 +1,4 @@
-const LOGIN = "login";
+const LOGIN = "social_login";
 const REGISTER = "register";
 const HOME = "home";
 const CATEGORIES = "categories";

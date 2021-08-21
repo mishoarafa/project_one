@@ -1,63 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:project_one/layout/shop_app/shop_layout.dart';
-import 'package:project_one/modules/shop_app/login/cubit/cubit.dart';
-import 'package:project_one/modules/shop_app/login/cubit/states.dart';
-import 'package:project_one/modules/shop_app/register/shop_register_screen.dart';
+import 'package:project_one/modules/social_app/social_register/cubit/cubit.dart';
+import 'package:project_one/modules/social_app/social_register/cubit/states.dart';
 import 'package:project_one/shared/components/components.dart';
 import 'package:project_one/shared/components/constants.dart';
 import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:project_one/shared/styles/colors.dart';
 
-class ShopLoginScreen extends StatelessWidget {
+class SocialRegisterScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ShopLoginCubit(),
-      child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+      create: (BuildContext context) => SocialRegisterCubit(),
+      child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
         listener: (BuildContext context, state) {
-          if (state is ShopLoginSuccessState) {
-            if (state.loginModel.status!) {
-              //It will print both the message and the "token"
-              print("******** Message: " + state.loginModel.message!);
-              print("******** Token: " + state.loginModel.data!.token);
-              CacheHelper.saveData(
-                key: "token",
-                value: state.loginModel.data!.token,
-              ).then((value) {
-                token = state.loginModel.data!.token;
-
-                Get.offAll(() => ShopLayout());
-              });
-
-              showToast(
-                message: state.loginModel.message!,
-                state: ToastStates.SUCCESS,
-              );
-            } else {
-              //It will print only the message because the token is null
-              print("******** Message: " + state.loginModel.message!);
-              showToast(
-                message: state.loginModel.message!,
-                state: ToastStates.ERROR,
-              );
-            }
+          if (state is SocialRegisterSuccessState) {
+            // if (state.loginModel.status!) {
+            //   print("*********** Message: " + state.loginModel.message!);
+            //   print("*********** Token: " + state.loginModel.data!.token);
+            //   CacheHelper.saveData(
+            //     key: "token",
+            //     value: state.loginModel.data!.token,
+            //   ).then((value) {
+            //     token = state.loginModel.data!.token;
+            //     Get.offAll(() => SocialLayout());
+            //     showToast(
+            //       message: state.loginModel.message!,
+            //       state: ToastStates.SUCCESS,
+            //     );
+            //   });
+            // } else {
+            //   //It will print only the message because the token is null
+            //   print("******** Message: " + state.loginModel.message!);
+            //   showToast(
+            //     message: state.loginModel.message!,
+            //     state: ToastStates.ERROR,
+            //   );
+            // }
           }
         },
         builder: (BuildContext context, state) {
-          var cubit = ShopLoginCubit.get(context);
+          var cubit = SocialRegisterCubit.get(context);
 
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                "Login",
+                "Register",
               ),
             ),
             body: Center(
@@ -71,7 +67,7 @@ class ShopLoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Login",
+                          "REGISTER",
                           style:
                               Theme.of(context).textTheme.headline4!.copyWith(
                                     fontWeight: FontWeight.bold,
@@ -79,7 +75,7 @@ class ShopLoginScreen extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          "Login now to browse our hot offers",
+                          "Register now to communicate with friends",
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
                                     fontWeight: FontWeight.bold,
@@ -89,6 +85,37 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 30,
+                        ),
+                        defaultFormField(
+                          controller: nameController,
+                          text: "Full Name",
+                          textWeight: FontWeight.bold,
+                          prefixIcon: Icons.person,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "Please, Enter your Name";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        defaultFormField(
+                          controller: phoneController,
+                          text: "Phone Number",
+                          textWeight: FontWeight.bold,
+                          textInputType: TextInputType.phone,
+                          prefixIcon: Icons.phone,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "Please, Enter your Phone Number";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 15,
                         ),
                         defaultFormField(
                           controller: emailController,
@@ -112,16 +139,10 @@ class ShopLoginScreen extends StatelessWidget {
                           textWeight: FontWeight.bold,
                           textInputType: TextInputType.visiblePassword,
                           isPassword: !cubit.isPasswordShown,
-                          onSubmit: (value) {
-                            if (formKey.currentState!.validate()) {
-                              cubit.userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text);
-                            }
-                          },
+                          onSubmit: (value) {},
                           suffixIcon: cubit.suffixIcon,
                           onSuffixPressed: () {
-                            cubit.changeLoginPasswordVisibility();
+                            cubit.changeRegisterPasswordVisibility();
                           },
                           prefixIcon: Icons.lock_outline,
                           validate: (value) {
@@ -134,43 +155,26 @@ class ShopLoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        (state is! ShopLoginLoadingState)
+                        (state is! SocialRegisterLoadingState)
                             ? defaultBtn(
-                                text: "Login",
+                                text: "Register",
                                 background: defaultColor,
+                                btnTextWeight: FontWeight.bold,
                                 isUpperCase: true,
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    cubit.userLogin(
-                                        email: emailController.text,
-                                        password: passwordController.text);
+                                    // cubit.userRegister(
+                                    //   name: nameController.text,
+                                    //   phone: phoneController.text,
+                                    //   email: emailController.text,
+                                    //   password: passwordController.text,
+                                    // );
                                   }
                                 },
-                                btnTextWeight: FontWeight.bold,
                               )
                             : Center(
                                 child: SpinKitFadingCircle(color: defaultColor),
                               ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account?",
-                            ),
-                            defaultTextButton(
-                              onPressed: () {
-                                Get.to(() => ShopRegisterScreen());
-                              },
-                              text: "Register Now",
-                              textColor: defaultColor,
-                              textWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
