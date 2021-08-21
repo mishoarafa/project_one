@@ -76,7 +76,7 @@ class MessengerScreenWithListViewBuilder extends StatelessWidget {
                   children: [
                     Icon(Icons.search),
                     SizedBox(
-                      width: 15,
+                      width: 12,
                     ),
                     Text(
                       "Search",
@@ -85,7 +85,7 @@ class MessengerScreenWithListViewBuilder extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 12,
               ),
               Container(
                 height: 100,

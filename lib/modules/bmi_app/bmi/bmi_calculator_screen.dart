@@ -29,7 +29,7 @@ class _BMIScreenState extends State<BMIScreen> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
                   Expanded(
@@ -108,7 +108,7 @@ class _BMIScreenState extends State<BMIScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: 16,
               ),
               child: Container(
                 decoration: BoxDecoration(
@@ -167,7 +167,7 @@ class _BMIScreenState extends State<BMIScreen> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
                   Expanded(
@@ -193,38 +193,40 @@ class _BMIScreenState extends State<BMIScreen> {
                               fontWeight: FontWeight.w900,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FloatingActionButton(
-                                onPressed: () {
-                                  setState(() {
-                                    age--;
-                                  });
-                                },
-                                heroTag: "age--",
-                                backgroundColor:
-                                    isMale ? Colors.blue : Colors.pinkAccent,
-                                mini: true,
-                                child: Icon(
-                                  Icons.remove,
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      age--;
+                                    });
+                                  },
+                                  heroTag: "age--",
+                                  backgroundColor:
+                                      isMale ? Colors.blue : Colors.pinkAccent,
+                                  mini: true,
+                                  child: Icon(
+                                    Icons.remove,
+                                  ),
                                 ),
-                              ),
-                              FloatingActionButton(
-                                onPressed: () {
-                                  setState(() {
-                                    age++;
-                                  });
-                                },
-                                heroTag: "age++",
-                                backgroundColor:
-                                    isMale ? Colors.blue : Colors.pinkAccent,
-                                mini: true,
-                                child: Icon(
-                                  Icons.add,
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      age++;
+                                    });
+                                  },
+                                  heroTag: "age++",
+                                  backgroundColor:
+                                      isMale ? Colors.blue : Colors.pinkAccent,
+                                  mini: true,
+                                  child: Icon(
+                                    Icons.add,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -254,38 +256,40 @@ class _BMIScreenState extends State<BMIScreen> {
                             style: TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.w900),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FloatingActionButton(
-                                onPressed: () {
-                                  setState(() {
-                                    weight--;
-                                  });
-                                },
-                                heroTag: "weight--",
-                                backgroundColor:
-                                    isMale ? Colors.blue : Colors.pinkAccent,
-                                mini: true,
-                                child: Icon(
-                                  Icons.remove,
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      weight--;
+                                    });
+                                  },
+                                  heroTag: "weight--",
+                                  backgroundColor:
+                                      isMale ? Colors.blue : Colors.pinkAccent,
+                                  mini: true,
+                                  child: Icon(
+                                    Icons.remove,
+                                  ),
                                 ),
-                              ),
-                              FloatingActionButton(
-                                onPressed: () {
-                                  setState(() {
-                                    weight++;
-                                  });
-                                },
-                                heroTag: "weight++",
-                                backgroundColor:
-                                    isMale ? Colors.blue : Colors.pinkAccent,
-                                mini: true,
-                                child: Icon(
-                                  Icons.add,
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  },
+                                  heroTag: "weight++",
+                                  backgroundColor:
+                                      isMale ? Colors.blue : Colors.pinkAccent,
+                                  mini: true,
+                                  child: Icon(
+                                    Icons.add,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),

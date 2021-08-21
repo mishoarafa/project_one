@@ -44,6 +44,7 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> sports = [];
   List<dynamic> science = [];
   List<dynamic> search = [];
+  String webViewPageTitle = "";
 
   void changeIndex(index) {
     currentIndex = index;

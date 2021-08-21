@@ -7,41 +7,44 @@ Widget buildStoryItem() => Row(
         ),
         Container(
           width: 65,
-          child: Column(
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                        "https://www.wallpaperflare.com/static/594/468/54/nature-flowers-dark-background-purple-wallpaper.jpg"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      bottom: 2,
-                      end: 2,
+          child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://www.wallpaperflare.com/static/594/468/54/nature-flowers-dark-background-purple-wallpaper.jpg"),
                     ),
-                    child: CircleAvatar(
-                      radius: 8,
-                      backgroundColor: Colors.white,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        bottom: 2,
+                        end: 2,
+                      ),
                       child: CircleAvatar(
-                        radius: 6,
-                        backgroundColor: Colors.red,
+                        radius: 8,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                          radius: 6,
+                          backgroundColor: Colors.red,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Mohamed Medhat Mohamed Arafa",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Mohamed Medhat Mohamed Arafa",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ),
       ],

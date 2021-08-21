@@ -80,29 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: "Password",
                     prefixIcon: Icons.lock,
                     isPassword: !showPassword,
-                    suffixIcon: showPassword
-                        ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                                print(showPassword);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.visibility,
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                                print(showPassword);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.visibility_off,
-                            ),
-                          ),
+                    onSuffixPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                        print(showPassword);
+                      });
+                    },
+                    suffixIcon:
+                        showPassword ? Icons.visibility : Icons.visibility_off,
                     validate: (String? value) {
                       if (value!.isEmpty) {
                         return "Password must not be empty";

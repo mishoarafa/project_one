@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_one/layout/todo_app/cubit/cubit.dart';
+import 'package:project_one/layout/todo_app/cubit/states.dart';
 import 'package:project_one/shared/components/components.dart';
-import 'package:project_one/shared/cubit/cubit.dart';
-import 'package:project_one/shared/cubit/states.dart';
 
 class DoneTasksScreen extends StatelessWidget {
   const DoneTasksScreen({Key? key}) : super(key: key);

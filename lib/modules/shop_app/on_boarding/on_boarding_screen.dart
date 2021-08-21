@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_one/modules/shop_app/login/login_screen.dart';
+import 'package:project_one/modules/shop_app/login/shop_login_screen.dart';
+import 'package:project_one/shared/components/components.dart';
+import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:project_one/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -23,22 +25,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   bool isLast = false;
 
+  void submit() {
+    CacheHelper.saveData(key: "onBoarding", value: true).then((value) {
+      if (value) {
+        Get.offAll(() => ShopLoginScreen());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton(
-            onPressed: () {
-              Get.to(() => ShopLoginScreen());
-            },
-            child: Text(
-              "Skip",
-              style: TextStyle(
-                color: defaultColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          defaultTextButton(
+            onPressed: submit,
+            text: "Skip",
+            textColor: defaultColor,
+            textWeight: FontWeight.bold,
           ),
         ],
       ),
@@ -83,18 +87,43 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                 ),
                 Spacer(),
-                FloatingActionButton(
-                  onPressed: () {
-                    (isLast)
-                        ? Get.to(() => ShopLoginScreen())
-                        : boardController.nextPage(
-                            duration: Duration(
-                              milliseconds: 750,
+                (isLast)
+                    ? Container(
+                        height: 50,
+                        child: FittedBox(
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              submit();
+                            },
+                            label: Text(
+                              "Get Started",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            curve: Curves.fastLinearToSlowEaseIn);
-                  },
-                  child: Icon(Icons.arrow_forward_ios),
-                )
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 50,
+                        height: 50,
+                        child: FittedBox(
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              boardController.nextPage(
+                                  duration: Duration(
+                                    milliseconds: 750,
+                                  ),
+                                  curve: Curves.fastLinearToSlowEaseIn);
+                            },
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
               ],
             ),
           ],

@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project_one/shared/styles/colors.dart';
 
 ThemeData lightTheme = ThemeData(
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
     ),
     backgroundColor: Colors.white,
     elevation: 0,
     titleTextStyle: TextStyle(
-      color: Colors.blue[900],
+      color: Colors.black,
       fontSize: 20,
       fontWeight: FontWeight.w500,
     ),
     iconTheme: IconThemeData(
-      color: Colors.blue[900],
+      color: Colors.black,
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
     unselectedItemColor: Colors.grey[700],
     elevation: 20,
     backgroundColor: Colors.white,
-  ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.deepOrange,
   ),
   textTheme: TextTheme(
     headline6: TextStyle(
@@ -38,7 +38,9 @@ ThemeData lightTheme = ThemeData(
   ),
   fontFamily: "Jannah",
 );
+
 ThemeData darkTheme = ThemeData(
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Color(0xff333739),
   appBarTheme: AppBarTheme(
     backwardsCompatibility: false,
@@ -59,13 +61,10 @@ ThemeData darkTheme = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
     unselectedItemColor: Colors.grey[400],
     elevation: 20,
     backgroundColor: Color(0xff262728),
-  ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.deepOrange,
   ),
   textTheme: TextTheme(
     headline6: TextStyle(

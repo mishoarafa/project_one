@@ -22,7 +22,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // void userCreate(uID) {
     //   FirebaseFirestore.instance.collection("users").doc(uID).set({
     //     "name" : nameController.text,
@@ -104,7 +103,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 15,
                   ),
-
                   defaultFormField(
                     controller: passwordController,
                     text: "Password",
@@ -117,31 +115,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    suffixIcon: showPassword
-                        ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                                print(showPassword);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.visibility,
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                                print(showPassword);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.visibility_off,
-                            ),
-                          ),
+                    onSuffixPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                        print(showPassword);
+                      });
+                    },
+                    suffixIcon:
+                        showPassword ? Icons.visibility : Icons.visibility_off,
                   ),
-
                   SizedBox(
                     height: 15,
                   ),
