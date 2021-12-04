@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:project_one/layout/social_app/social_layout.dart';
 import 'package:project_one/modules/social_app/social_register/cubit/cubit.dart';
 import 'package:project_one/modules/social_app/social_register/cubit/states.dart';
 import 'package:project_one/shared/components/components.dart';
-import 'package:project_one/shared/components/constants.dart';
-import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:project_one/shared/styles/colors.dart';
 
 class SocialRegisterScreen extends StatelessWidget {
@@ -22,7 +21,7 @@ class SocialRegisterScreen extends StatelessWidget {
       create: (BuildContext context) => SocialRegisterCubit(),
       child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
         listener: (BuildContext context, state) {
-          if (state is SocialRegisterSuccessState) {
+          if (state is SocialCreateUserSuccessState) {
             // if (state.loginModel.status!) {
             //   print("*********** Message: " + state.loginModel.message!);
             //   print("*********** Token: " + state.loginModel.data!.token);
@@ -45,6 +44,7 @@ class SocialRegisterScreen extends StatelessWidget {
             //     state: ToastStates.ERROR,
             //   );
             // }
+            Get.offAll(() => SocialLayout());
           }
         },
         builder: (BuildContext context, state) {
@@ -90,26 +90,12 @@ class SocialRegisterScreen extends StatelessWidget {
                           controller: nameController,
                           text: "Full Name",
                           textWeight: FontWeight.bold,
-                          prefixIcon: Icons.person,
+                          prefixIcon: Icons.person_outline,
+                          verticalPadding: 14,
+                          borderRadius: 15,
                           validate: (value) {
                             if (value!.isEmpty) {
                               return "Please, Enter your Name";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        defaultFormField(
-                          controller: phoneController,
-                          text: "Phone Number",
-                          textWeight: FontWeight.bold,
-                          textInputType: TextInputType.phone,
-                          prefixIcon: Icons.phone,
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return "Please, Enter your Phone Number";
                             }
                             return null;
                           },
@@ -123,6 +109,8 @@ class SocialRegisterScreen extends StatelessWidget {
                           textWeight: FontWeight.bold,
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: Icons.email_outlined,
+                          verticalPadding: 14,
+                          borderRadius: 15,
                           validate: (value) {
                             if (value!.isEmpty) {
                               return "Please, Enter your Email Address";
@@ -138,6 +126,8 @@ class SocialRegisterScreen extends StatelessWidget {
                           text: "Password",
                           textWeight: FontWeight.bold,
                           textInputType: TextInputType.visiblePassword,
+                          verticalPadding: 14,
+                          borderRadius: 15,
                           isPassword: !cubit.isPasswordShown,
                           onSubmit: (value) {},
                           suffixIcon: cubit.suffixIcon,
@@ -153,27 +143,55 @@ class SocialRegisterScreen extends StatelessWidget {
                           },
                         ),
                         SizedBox(
+                          height: 15,
+                        ),
+                        defaultFormField(
+                          controller: phoneController,
+                          text: "Phone Number",
+                          textWeight: FontWeight.bold,
+                          textInputType: TextInputType.phone,
+                          prefixIcon: Icons.phone,
+                          verticalPadding: 14,
+                          borderRadius: 15,
+                          onSubmit: (value) {
+                            if (formKey.currentState!.validate()) {
+                              cubit.userRegister(
+                                name: nameController.text,
+                                phone: phoneController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "Please, Enter your Phone Number";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
                           height: 30,
                         ),
                         (state is! SocialRegisterLoadingState)
                             ? defaultBtn(
                                 text: "Register",
-                                background: defaultColor,
+                                background: socialDefaultColor,
                                 btnTextWeight: FontWeight.bold,
                                 isUpperCase: true,
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    // cubit.userRegister(
-                                    //   name: nameController.text,
-                                    //   phone: phoneController.text,
-                                    //   email: emailController.text,
-                                    //   password: passwordController.text,
-                                    // );
+                                    cubit.userRegister(
+                                      name: nameController.text,
+                                      phone: phoneController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
                                   }
                                 },
                               )
                             : Center(
-                                child: SpinKitFadingCircle(color: defaultColor),
+                                child: SpinKitFadingCircle(color: socialDefaultColor),
                               ),
                       ],
                     ),

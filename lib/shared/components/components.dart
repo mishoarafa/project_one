@@ -3,15 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:project_one/layout/todo_app/cubit/cubit.dart';
 import 'package:project_one/modules/news_app/web_view/web_view_screen.dart';
-import 'package:project_one/modules/shop_app/login/shop_login_screen.dart';
-import 'package:project_one/shared/network/local/cache_helper.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:project_one/layout/todo_app/cubit/cubit.dart';
-import 'package:project_one/modules/news_app/web_view/web_view_screen.dart';
-import 'package:project_one/modules/shop_app/login/shop_login_screen.dart';
-import 'package:project_one/shared/network/local/cache_helper.dart';
 
 Widget defaultBtn({
   Color background = Colors.green,
@@ -46,15 +37,17 @@ Widget defaultFormField({
   required TextEditingController controller,
   required String text,
   required IconData prefixIcon,
+  required String? Function(String?) validate,
   TextInputType textInputType = TextInputType.text,
   bool isPassword = false,
   Function(String)? onSubmit,
   Function()? onTap,
   Function(String)? onChanged,
-  required String? Function(String?) validate,
   IconData? suffixIcon,
   Function()? onSuffixPressed,
   FontWeight? textWeight = FontWeight.normal,
+  double verticalPadding = 20,
+  double borderRadius = 5,
 }) =>
     TextFormField(
       controller: controller,
@@ -68,7 +61,12 @@ Widget defaultFormField({
         labelStyle: TextStyle(
           fontWeight: textWeight,
         ),
-        border: OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: verticalPadding,
+        ),
         prefixIcon: Icon(prefixIcon),
         suffixIcon: IconButton(
           onPressed: onSuffixPressed,

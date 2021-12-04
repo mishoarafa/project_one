@@ -103,22 +103,6 @@ class ShopRegisterScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
-                          controller: phoneController,
-                          text: "Phone Number",
-                          textWeight: FontWeight.bold,
-                          textInputType: TextInputType.phone,
-                          prefixIcon: Icons.phone,
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return "Please, Enter your Phone Number";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        defaultFormField(
                           controller: emailController,
                           text: "Email Address",
                           textWeight: FontWeight.bold,
@@ -149,6 +133,22 @@ class ShopRegisterScreen extends StatelessWidget {
                           validate: (value) {
                             if (value!.isEmpty) {
                               return "Please, Enter your Password";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        defaultFormField(
+                          controller: phoneController,
+                          text: "Phone Number",
+                          textWeight: FontWeight.bold,
+                          textInputType: TextInputType.phone,
+                          prefixIcon: Icons.phone,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "Please, Enter your Phone Number";
                             }
                             return null;
                           },

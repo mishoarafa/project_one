@@ -159,6 +159,9 @@ class ShopLoginScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Don't have an account?",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             defaultTextButton(
                               onPressed: () {

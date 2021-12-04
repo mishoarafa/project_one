@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:project_one/layout/social_app/social_layout.dart';
 import 'package:project_one/modules/social_app/social_login/cubit/cubit.dart';
 import 'package:project_one/modules/social_app/social_login/cubit/states.dart';
 import 'package:project_one/modules/social_app/social_register/social_register_screen.dart';
 import 'package:project_one/shared/components/components.dart';
+import 'package:project_one/shared/network/local/cache_helper.dart';
 import 'package:project_one/shared/styles/colors.dart';
 
 class SocialLoginScreen extends StatelessWidget {
@@ -18,7 +20,16 @@ class SocialLoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => SocialLoginCubit(),
       child: BlocConsumer<SocialLoginCubit, SocialLoginStates>(
-        listener: (BuildContext context, state) {},
+        listener: (BuildContext context, state) {
+          if (state is SocialLoginErrorState) {
+            showToast(message: state.error, state: ToastStates.ERROR);
+          }
+          if (state is SocialLoginSuccessState) {
+            CacheHelper.saveData(key: "uId", value: state.uId).then((value) {
+              Get.offAll(() => SocialLayout());
+            });
+          }
+        },
         builder: (BuildContext context, state) {
           var cubit = SocialLoginCubit.get(context);
 
@@ -70,6 +81,8 @@ class SocialLoginScreen extends StatelessWidget {
                           textWeight: FontWeight.bold,
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: Icons.email_outlined,
+                          verticalPadding: 14,
+                          borderRadius: 15,
                           validate: (value) {
                             if (value!.isEmpty) {
                               return "Please, Enter your Email Address";
@@ -85,12 +98,14 @@ class SocialLoginScreen extends StatelessWidget {
                           text: "Password",
                           textWeight: FontWeight.bold,
                           textInputType: TextInputType.visiblePassword,
+                          verticalPadding: 14,
+                          borderRadius: 15,
                           isPassword: !cubit.isPasswordShown,
                           onSubmit: (value) {
                             if (formKey.currentState!.validate()) {
-                              // cubit.userLogin(
-                              //     email: emailController.text,
-                              //     password: passwordController.text);
+                              cubit.userLogin(
+                                  email: emailController.text,
+                                  password: passwordController.text);
                             }
                           },
                           suffixIcon: cubit.suffixIcon,
@@ -111,19 +126,19 @@ class SocialLoginScreen extends StatelessWidget {
                         (state is! SocialLoginLoadingState)
                             ? defaultBtn(
                           text: "Login",
-                          background: defaultColor,
+                          background: socialDefaultColor,
                           isUpperCase: true,
                           function: () {
                             if (formKey.currentState!.validate()) {
-                              // cubit.userLogin(
-                              //     email: emailController.text,
-                              //     password: passwordController.text);
+                              cubit.userLogin(
+                                  email: emailController.text,
+                                  password: passwordController.text);
                             }
                           },
                           btnTextWeight: FontWeight.bold,
                         )
                             : Center(
-                          child: SpinKitFadingCircle(color: defaultColor),
+                          child: SpinKitFadingCircle(color: socialDefaultColor),
                         ),
                         SizedBox(
                           height: 15,
@@ -133,13 +148,16 @@ class SocialLoginScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Don't have an account?",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             defaultTextButton(
                               onPressed: () {
                                 Get.to(() => SocialRegisterScreen());
                               },
                               text: "Register Now",
-                              textColor: defaultColor,
+                              textColor: socialDefaultColor,
                               textWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
